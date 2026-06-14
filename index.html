@@ -48,6 +48,8 @@
     @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
     .reveal { opacity: 0; }
     .reveal.in { animation: fadeUp 0.7s cubic-bezier(.21,.6,.35,1) forwards; }
+    @keyframes cardIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .card-enter { opacity: 1; animation: cardIn 0.45s cubic-bezier(.21,.6,.35,1); }
     .card-glow:hover { box-shadow: 0 0 0 1px rgba(124,92,255,0.5), 0 24px 60px -20px rgba(124,92,255,0.45); }
     .gradient-text { background: linear-gradient(120deg,#a78bfa,#22d3ee); -webkit-background-clip: text; background-clip: text; color: transparent; }
     ::selection { background: rgba(124,92,255,0.4); }
@@ -232,7 +234,7 @@
 
     function ProjectCard({ p }) {
       return (
-        <article className={"reveal card-glow transition-all duration-300 rounded-3xl p-7 border " +
+        <article className={"card-enter card-glow transition-all duration-300 rounded-3xl p-7 border " +
           (p.featured ? "bg-gradient-to-br from-accent/15 via-panel to-panel border-accent/30 md:col-span-2" : "bg-panel/70 border-white/5")}>
           <div className="flex items-start justify-between gap-4 mb-3">
             <div>
@@ -275,7 +277,7 @@
               ))}
             </div>
             <div className="grid md:grid-cols-2 gap-6">
-              {shown.map((p) => <ProjectCard key={p.title} p={p} />)}
+              {shown.map((p) => <ProjectCard key={filter + "::" + p.title} p={p} />)}
             </div>
           </div>
         </section>
